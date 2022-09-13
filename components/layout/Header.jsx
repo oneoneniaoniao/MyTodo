@@ -1,58 +1,58 @@
 import Link from "next/link";
-import Box from "@mui/material/Box";
+import { Stack, Box, Paper } from "@mui/material";
 import AddBoxIcon from "@mui/icons-material/AddBox";
 
 const Header = ({ isIndex }) => {
   return (
-    <Box sx={styles.outerBox}>
-      <Box sx={styles.box}>
+    <Paper sx={styles.paper}>
+      <Stack sx={styles.flexRow} direction="row">
         <Box sx={styles.hover}>
           <Link href="/">
-            <h1>My ToDo App</h1>
+            <h1>My TODO</h1>
           </Link>
         </Box>
         {isIndex && (
-          <Box sx={styles.hover}>
-            <Link href="/add">
-              <a>
-                <AddBoxIcon sx={styles.hoverIcon} />
-              </a>
-            </Link>
-          </Box>
+          <Link href="/add">
+            <a>
+              <AddBoxIcon sx={styles.hoverIcon} />
+            </a>
+          </Link>
         )}
-      </Box>
-    </Box>
+      </Stack>
+    </Paper>
   );
 };
 
 const styles = {
-  outerBox: {
+  paper: {
     bgcolor: "primary.main",
-    color: "white",
+    color: "common.white",
     px: 3,
     py: 1,
+    borderRadius:0,
     position: "absolute",
     width: "100%",
     top: 0,
   },
-  box: {
+  flexRow: {
     maxWidth: "lg",
     mx: "auto",
-    display: "flex",
+    direction: "row",
     alignItems: "center",
   },
   hover: {
+    textShadow:"0 1px 3px #888",
     "&:hover": {
-      color: "primary.light",
-      cursor: "pointer",
+      cursor:"pointer",
+      color: "grey.100",
     },
   },
   hoverIcon: {
-    color: "white",
+    color: "common.white",
     mx: 3,
     fontSize: "32px",
     "&:hover": {
-      color: "primary.light",
+      color: "grey.100",
     },
   },
 };

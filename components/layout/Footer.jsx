@@ -1,13 +1,14 @@
-import Box from "@mui/material/Box";
+import {Box, Paper} from "@mui/material";
 
-const Footer = () => <Box sx={styles.box}>CopyRight 2022 Maru</Box>;
+const Footer = () => <Paper sx={styles.Paper}>CopyRight 2022 Maru</Paper>;
 
 const styles = {
-  box: {
+  Paper: {
     bgcolor: "primary.main",
     color: "white",
     px: 5,
     py: 1,
+    borderRadius: 0,
     textAlign: "center",
     position: "absolute",
     bottom: 0,
