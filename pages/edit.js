@@ -15,7 +15,7 @@ import {
 import FormControl, { useFormControl } from "@mui/material/FormControl";
 import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
 
-export default function Add() {
+export default function Edit() {
   const [value, setValue] = useState(null);
 
   const handleChange = (newValue) => {
@@ -26,7 +26,7 @@ export default function Add() {
       <Layout>
         <Paper sx={{ p: 5, my: 4 }}>
           <Typography variant="h5" mb={2} ml={1}>
-            Add your new task.
+            {`Edit task ${"the title"}.`}
           </Typography>
           <Stack component="form" spacing={2}>
             <TextField
