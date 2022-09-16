@@ -72,7 +72,7 @@ const TodoTable = () => {
             id="tableTitle"
             component="div"
           >
-            {`You have 2 tasks in progress.`}
+            {`You have 2 tasks in progress. 2 tasks remaining.`}
           </Typography>
           <Table aria-labelledby="tableTitle">
             {matches ? (

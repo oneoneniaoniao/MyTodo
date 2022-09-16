@@ -1,4 +1,4 @@
-import { blue, deepOrange } from "@mui/material/colors";
+import { blue, yellow, green, lightBlue, indigo, teal, amber } from "@mui/material/colors";
 import { createTheme } from "@mui/material/styles";
 import defaultTheme from "@mui/material/styles";
 import { useRecoilBridgeAcrossReactRoots_UNSTABLE } from "recoil";
@@ -8,9 +8,9 @@ const theme = createTheme({
     primary: {
       main: blue[300],
     },
-    // secondary: {
-    //   main: deepOrange[400],
-    // },
+    secondary: {
+      main: amber[200],
+    },
   },
 });
 
