@@ -12,7 +12,7 @@ import {
   Paper,
 } from "@mui/material";
 import { useRecoilValue } from "recoil";
-import { todosState } from "../atoms";
+import { todosState } from "../atom/atoms";
 
 import { NormalTableHead, CollapsibleTableHead } from "./TableHeads";
 import { NormalTableRow, CollapsibleTableRow } from "./TableRows";
