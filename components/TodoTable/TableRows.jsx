@@ -6,6 +6,7 @@ import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import getDate from "../utils/getDate";
 
 export const CollapsibleTableRow = ({ todo }) => {
   const [open, setOpen] = React.useState(false);
@@ -26,7 +27,7 @@ export const CollapsibleTableRow = ({ todo }) => {
           {todo.title}
         </TableCell>
         <TableCell align="center">{todo.status}</TableCell>
-        <TableCell align="center">{todo.dueDate}</TableCell>
+        <TableCell align="center">{getDate(todo.dueDate)}</TableCell>
       </TableRow>
       <TableRow>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={4}>
@@ -74,7 +75,7 @@ CollapsibleTableRow.propTypes = {
   todo: PropTypes.shape({
     title: PropTypes.string.isRequired,
     status: PropTypes.string.isRequired,
-    dueDate: PropTypes.string.isRequired,
+    dueDate: PropTypes.instanceOf(Date).isRequired,
     detail: PropTypes.string.isRequired,
   }).isRequired,
 };
@@ -87,7 +88,7 @@ export const NormalTableRow = ({ todo }) => {
       </TableCell>
       <TableCell>{todo.detail}</TableCell>
       <TableCell align="center">{todo.status}</TableCell>
-      <TableCell align="center">{todo.dueDate}</TableCell>
+      <TableCell align="center">{getDate(todo.dueDate)}</TableCell>
       <TableCell align="right">
         <EditOutlinedIcon
           sx={{
@@ -116,7 +117,7 @@ NormalTableRow.propTypes = {
   todo: PropTypes.shape({
     title: PropTypes.string.isRequired,
     status: PropTypes.string.isRequired,
-    dueDate: PropTypes.string.isRequired,
+    dueDate: PropTypes.instanceOf(Date).isRequired,
     detail: PropTypes.string.isRequired,
   }).isRequired,
 };
