@@ -11,7 +11,7 @@ import {
   Typography,
   Paper,
 } from "@mui/material";
-import { useRecoilValue } from "recoil";
+import { useRecoilState } from "recoil";
 import { todosState } from "../atom/atoms";
 
 import { NormalTableHead, CollapsibleTableHead } from "./TableHeads";
@@ -40,8 +40,7 @@ const TodoTable = () => {
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.up("md"));
-
-  const todos = useRecoilValue(todosState);
+  const [todos, setTodos] = useRecoilState(todosState);
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === "asc";
@@ -61,6 +60,14 @@ const TodoTable = () => {
   // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - todos.length) : 0;
+
+  const onClickDelete = (id) => {
+    console.log("onClickDelete: " + id);
+    const newTodos = todos.filter((todo) => {
+      return todo.id !== id;
+    });
+    setTodos(newTodos);
+  };
 
   return (
     <>
@@ -98,9 +105,17 @@ const TodoTable = () => {
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((todo, index) => {
                   return matches ? (
-                    <NormalTableRow key={todo.id} todo={todo} />
+                    <NormalTableRow
+                      key={todo.id}
+                      todo={todo}
+                      onClickDelete={onClickDelete}
+                    />
                   ) : (
-                    <CollapsibleTableRow key={todo.id} todo={todo} />
+                    <CollapsibleTableRow
+                      key={todo.id}
+                      todo={todo}
+                      onClickDelete={onClickDelete}
+                    />
                   );
                 })}
               {emptyRows > 0 && (

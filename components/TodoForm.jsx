@@ -17,14 +17,15 @@ import { v4 as uuidv4 } from "uuid";
 import { useRouter } from "next/router";
 import DialogDeleteButton from "./DialogDeleteButton";
 
-const TodoForm = ({ id }) => {
+const TodoForm = () => {
   const [todos, setTodos] = useRecoilState(todosState);
   const router = useRouter();
+  const id = router.query.id;
   const defaultValue = {
     title: "",
     detail: "",
     status: "todo",
-    dueDate: new Date(),
+    dueDate: null,
   };
 
   if (id) {
@@ -53,7 +54,7 @@ const TodoForm = ({ id }) => {
     router.push("/");
   };
 
-  const onClickDelete = (e) => {
+  const onClickDelete = () => {
     const newTodos = todos.filter((todo) => {
       return todo.id !== id;
     });

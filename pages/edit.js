@@ -1,27 +1,9 @@
-import { useState } from "react";
 import Head from "next/head";
 import Layout from "../components/layout/Layout";
-import {
-  TextField,
-  Stack,
-  Paper,
-  Typography,
-  Button,
-  Box,
-  InputLabel,
-  MenuItem,
-  Select,
-} from "@mui/material";
-import FormControl, { useFormControl } from "@mui/material/FormControl";
-import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
+import { Paper, Typography } from "@mui/material";
 import TodoForm from "../components/TodoForm";
 
 export default function Edit() {
-  const [value, setValue] = useState(null);
-
-  const handleChange = (newValue) => {
-    setValue(newValue);
-  };
   return (
     <>
       <Layout>
@@ -29,7 +11,7 @@ export default function Edit() {
           <Typography variant="h5" mb={2} ml={1}>
             Edit your task.
           </Typography>
-          <TodoForm id={"1"} />
+          <TodoForm />
         </Paper>
       </Layout>
       <Head>
