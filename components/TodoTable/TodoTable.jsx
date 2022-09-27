@@ -10,10 +10,10 @@ import {
   TableRow,
   Typography,
   Paper,
+  Box,
 } from "@mui/material";
-import { useRecoilValue } from "recoil";
+import { useRecoilState } from "recoil";
 import { todosState } from "../atom/atoms";
-
 import { NormalTableHead, CollapsibleTableHead } from "./TableHeads";
 import { NormalTableRow, CollapsibleTableRow } from "./TableRows";
 
@@ -33,15 +33,14 @@ function getComparator(order, orderBy) {
     : (a, b) => -descendingComparator(a, b, orderBy);
 }
 
-const TodoTable = () => {
+const TodoTable = ({ statusFilter }) => {
   const [order, setOrder] = React.useState("asc");
   const [orderBy, setOrderBy] = React.useState("");
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.up("md"));
-
-  const todos = useRecoilValue(todosState);
+  const [todos, setTodos] = useRecoilState(todosState);
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === "asc";
@@ -62,18 +61,22 @@ const TodoTable = () => {
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - todos.length) : 0;
 
+  const onClickDelete = (id) => {
+    console.log("onClickDelete: " + id);
+    const newTodos = todos.filter((todo) => {
+      return todo.id !== id;
+    });
+    setTodos(newTodos);
+  };
+
+  const filteredTodos = statusFilter
+    ? todos.filter((todo) => todo.status === statusFilter)
+    : todos;
+
   return (
     <>
       <Paper sx={{ overflow: "auto", maxWidth: "1100px", m: "auto" }}>
-        <TableContainer sx={{ m: "auto" }}>
-          <Typography
-            sx={{ py: { xs: 2, sm: 3 }, px: { xs: 1, sm: 2 } }}
-            variant="h6"
-            id="tableTitle"
-            component="div"
-          >
-            {`You have 2 tasks in progress. 2 tasks remaining.`}
-          </Typography>
+        <TableContainer sx={{ m: 1 }}>
           <Table aria-labelledby="tableTitle">
             {matches ? (
               <NormalTableHead
@@ -92,15 +95,23 @@ const TodoTable = () => {
             )}
 
             <TableBody>
-              {todos
+              {filteredTodos
                 .slice()
                 .sort(getComparator(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((todo, index) => {
                   return matches ? (
-                    <NormalTableRow key={todo.id} todo={todo} />
+                    <NormalTableRow
+                      key={todo.id}
+                      todo={todo}
+                      onClickDelete={onClickDelete}
+                    />
                   ) : (
-                    <CollapsibleTableRow key={todo.id} todo={todo} />
+                    <CollapsibleTableRow
+                      key={todo.id}
+                      todo={todo}
+                      onClickDelete={onClickDelete}
+                    />
                   );
                 })}
               {emptyRows > 0 && (

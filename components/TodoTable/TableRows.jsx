@@ -7,10 +7,18 @@ import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import getDate from "../utils/getDate";
+import { useRouter } from "next/router";
+import DialogDeleteItem from "../DialogDeleteItem";
 
-export const CollapsibleTableRow = ({ todo }) => {
+export const CollapsibleTableRow = ({ todo, onClickDelete }) => {
   const [open, setOpen] = React.useState(false);
-
+  const router = useRouter();
+  const onClickEdit = () => {
+    router.push({
+      pathname: "/edit",
+      query: { id: todo.id },
+    });
+  };
   return (
     <>
       <TableRow hover sx={{ "& > *": { borderBottom: "unset" } }}>
@@ -27,7 +35,9 @@ export const CollapsibleTableRow = ({ todo }) => {
           {todo.title}
         </TableCell>
         <TableCell align="center">{todo.status}</TableCell>
-        <TableCell align="center">{getDate(todo.dueDate)}</TableCell>
+        <TableCell align="center">
+          {todo.dueDate && getDate(todo.dueDate)}
+        </TableCell>
       </TableRow>
       <TableRow>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={4}>
@@ -43,8 +53,13 @@ export const CollapsibleTableRow = ({ todo }) => {
               }}
             >
               <Box ml={8}>{todo.detail}</Box>
-              <Box align="right" minWidth="100px">
+              <Stack
+                direction="row"
+                justifyContent="space-around"
+                minWidth="60px"
+              >
                 <EditOutlinedIcon
+                  onClick={onClickEdit}
                   sx={{
                     fontSize: 26,
                     "&:hover": {
@@ -53,16 +68,18 @@ export const CollapsibleTableRow = ({ todo }) => {
                     },
                   }}
                 />
-                <DeleteOutlinedIcon
-                  sx={{
-                    fontSize: 26,
-                    "&:hover": {
-                      cursor: "pointer",
-                      color: "rgba(0,0,0,0.5)",
-                    },
-                  }}
-                />
-              </Box>
+                <DialogDeleteItem onClickDelete={() => onClickDelete(todo.id)}>
+                  <DeleteOutlinedIcon
+                    sx={{
+                      fontSize: 26,
+                      "&:hover": {
+                        cursor: "pointer",
+                        color: "rgba(0,0,0,0.5)",
+                      },
+                    }}
+                  />
+                </DialogDeleteItem>
+              </Stack>
             </Stack>
           </Collapse>
         </TableCell>
@@ -80,7 +97,13 @@ CollapsibleTableRow.propTypes = {
   }).isRequired,
 };
 
-export const NormalTableRow = ({ todo }) => {
+export const NormalTableRow = ({ todo, onClickDelete }) => {
+  const onClickEdit = () => {
+    router.push({
+      pathname: "/edit",
+      query: { id: todo.id },
+    });
+  };
   return (
     <TableRow hover tabIndex={-1}>
       <TableCell component="th" id={todo.id} scope="row">
@@ -88,26 +111,33 @@ export const NormalTableRow = ({ todo }) => {
       </TableCell>
       <TableCell>{todo.detail}</TableCell>
       <TableCell align="center">{todo.status}</TableCell>
-      <TableCell align="center">{getDate(todo.dueDate)}</TableCell>
+      <TableCell align="center">
+        {todo.dueDate && getDate(todo.dueDate)}
+      </TableCell>
       <TableCell align="right">
-        <EditOutlinedIcon
-          sx={{
-            fontSize: 26,
-            "&:hover": {
-              cursor: "pointer",
-              color: "rgba(0,0,0,0.5)",
-            },
-          }}
-        />
-        <DeleteOutlinedIcon
-          sx={{
-            fontSize: 26,
-            "&:hover": {
-              cursor: "pointer",
-              color: "rgba(0,0,0,0.5)",
-            },
-          }}
-        />
+        <Stack direction="row" justifyContent="space-around" minWidth="60px">
+          <EditOutlinedIcon
+            onClick={onClickEdit}
+            sx={{
+              fontSize: 26,
+              "&:hover": {
+                cursor: "pointer",
+                color: "rgba(0,0,0,0.5)",
+              },
+            }}
+          />
+          <DialogDeleteItem onClickDelete={() => onClickDelete(todo.id)}>
+            <DeleteOutlinedIcon
+              sx={{
+                fontSize: 26,
+                "&:hover": {
+                  cursor: "pointer",
+                  color: "rgba(0,0,0,0.5)",
+                },
+              }}
+            />
+          </DialogDeleteItem>
+        </Stack>
       </TableCell>
     </TableRow>
   );

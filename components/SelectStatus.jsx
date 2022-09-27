@@ -7,8 +7,12 @@ import {
   MenuItem,
 } from "@mui/material";
 import FilterListIcon from "@mui/icons-material/FilterList";
+import { useRecoilState } from "recoil";
+import { todosState } from "./atom/atoms";
 
-const SelectStatus = () => {
+const SelectStatus = ({ statusFilter, setStatusFilter }) => {
+  const [todos, setTodos] = useRecoilState(todosState);
+
   return (
     <Stack
       sx={{
@@ -26,7 +30,10 @@ const SelectStatus = () => {
           label="Filter"
           labelid="filter-label"
           id="filter"
-          defaultValue=""
+          defaultValue={statusFilter}
+          onChange={(e) => {
+            setStatusFilter(e.target.value);
+          }}
         >
           <MenuItem value="">
             <em>None</em>
