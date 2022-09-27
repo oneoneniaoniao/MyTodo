@@ -15,7 +15,7 @@ import { useRecoilState } from "recoil";
 import { todosState } from "./atom/atoms";
 import { v4 as uuidv4 } from "uuid";
 import { useRouter } from "next/router";
-import DialogDeleteButton from "./DialogDeleteButton";
+import DialogDeleteItem from "./DialogDeleteItem";
 
 const TodoForm = () => {
   const [todos, setTodos] = useRecoilState(todosState);
@@ -43,6 +43,7 @@ const TodoForm = () => {
   const { control, handleSubmit } = useForm({});
 
   const onSubmit = (data) => {
+    console.log("data", data);
     if (id) {
       const newTodo = todos.map((todo) => {
         return todo.id === id ? { id, ...data } : todo;
@@ -161,12 +162,29 @@ const TodoForm = () => {
             sx={{ width: "200px", m: 2 }}
             type="submit"
           >
-            {id ? "Edit" : "Add"}
+            {id ? "Update" : "Add"}
+          </Button>
+          <Button
+            onClick={() => router.push("/")}
+            variant="outlined"
+            color="primary"
+            size="large"
+            sx={{ width: "200px", m: 2 }}
+            type="button"
+          >
+            Cancel
           </Button>
           {id && (
-            <DialogDeleteButton onClickDelete={onClickDelete}>
-              Delete
-            </DialogDeleteButton>
+            <DialogDeleteItem onClickDelete={onClickDelete}>
+              <Button
+                color="warning"
+                variant="outlined"
+                size="large"
+                sx={{ width: "200px", m: 2 }}
+              >
+                Delete
+              </Button>
+            </DialogDeleteItem>
           )}
         </Box>
       </Stack>

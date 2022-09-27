@@ -8,7 +8,7 @@ import DialogTitle from "@mui/material/DialogTitle";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
 
-export default function DialogDeleteButton({ onClickDelete }) {
+export default function DialogDeleteItem({ onClickDelete, children }) {
   const [open, setOpen] = React.useState(false);
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
@@ -26,16 +26,14 @@ export default function DialogDeleteButton({ onClickDelete }) {
     handleClose();
   };
 
+  // pass onClick props to children
+  const newChildren = React.cloneElement(children, {
+    onClick: handleClickOpen,
+  });
+
   return (
     <>
-      <Button
-        variant="outlined"
-        size="large"
-        sx={{ width: "200px", m: 2 }}
-        onClick={handleClickOpen}
-      >
-        Delete
-      </Button>
+      {newChildren}
       <Dialog
         fullScreen={fullScreen}
         open={open}

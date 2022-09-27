@@ -10,10 +10,10 @@ import {
   TableRow,
   Typography,
   Paper,
+  Box,
 } from "@mui/material";
 import { useRecoilState } from "recoil";
 import { todosState } from "../atom/atoms";
-
 import { NormalTableHead, CollapsibleTableHead } from "./TableHeads";
 import { NormalTableRow, CollapsibleTableRow } from "./TableRows";
 
@@ -33,7 +33,7 @@ function getComparator(order, orderBy) {
     : (a, b) => -descendingComparator(a, b, orderBy);
 }
 
-const TodoTable = () => {
+const TodoTable = ({ statusFilter }) => {
   const [order, setOrder] = React.useState("asc");
   const [orderBy, setOrderBy] = React.useState("");
   const [page, setPage] = React.useState(0);
@@ -69,18 +69,14 @@ const TodoTable = () => {
     setTodos(newTodos);
   };
 
+  const filteredTodos = statusFilter
+    ? todos.filter((todo) => todo.status === statusFilter)
+    : todos;
+
   return (
     <>
       <Paper sx={{ overflow: "auto", maxWidth: "1100px", m: "auto" }}>
-        <TableContainer sx={{ m: "auto" }}>
-          <Typography
-            sx={{ py: { xs: 2, sm: 3 }, px: { xs: 1, sm: 2 } }}
-            variant="h6"
-            id="tableTitle"
-            component="div"
-          >
-            {`You have 2 tasks in progress. 2 tasks remaining.`}
-          </Typography>
+        <TableContainer sx={{ m: 1 }}>
           <Table aria-labelledby="tableTitle">
             {matches ? (
               <NormalTableHead
@@ -99,7 +95,7 @@ const TodoTable = () => {
             )}
 
             <TableBody>
-              {todos
+              {filteredTodos
                 .slice()
                 .sort(getComparator(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
