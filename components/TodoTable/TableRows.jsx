@@ -98,6 +98,7 @@ CollapsibleTableRow.propTypes = {
 };
 
 export const NormalTableRow = ({ todo, onClickDelete }) => {
+  const router = useRouter();
   const onClickEdit = () => {
     router.push({
       pathname: "/edit",
