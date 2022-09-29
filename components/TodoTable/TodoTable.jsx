@@ -76,7 +76,7 @@ const TodoTable = ({ statusFilter }) => {
   return (
     <>
       <Paper sx={{ overflow: "auto", maxWidth: "1100px", m: "auto" }}>
-        <TableContainer sx={{ m: 1 }}>
+        <TableContainer>
           <Table aria-labelledby="tableTitle">
             {matches ? (
               <NormalTableHead

@@ -44,15 +44,20 @@ const TodoForm = () => {
 
   const onSubmit = (data) => {
     console.log("data", data);
-    if (id) {
-      const newTodo = todos.map((todo) => {
-        return todo.id === id ? { id, ...data } : todo;
-      });
-      setTodos(newTodo);
+    if (Number.isNaN(data.dueDate.getTime())) {
+      alert("The due date is invalid. Please enter a valid date.");
+      return;
     } else {
-      setTodos([{ id: uuidv4(), ...data }, ...todos]);
+      if (id) {
+        const newTodo = todos.map((todo) => {
+          return todo.id === id ? { id, ...data } : todo;
+        });
+        setTodos(newTodo);
+      } else {
+        setTodos([{ id: uuidv4(), ...data }, ...todos]);
+      }
+      router.push("/");
     }
-    router.push("/");
   };
 
   const onClickDelete = () => {
