@@ -22,13 +22,13 @@ export default function Add() {
       <Layout>
         <Paper sx={{ p: 5, my: 4 }}>
           <Typography variant="h5" mb={2} ml={1}>
-            Add your new task.
+            Add a new task.
           </Typography>
           <TodoForm />
         </Paper>
       </Layout>
       <Head>
-        <title>My ToDo App - Please add your todo -</title>
+        <title>My ToDo App - Please add a task -</title>
       </Head>
     </>
   );
