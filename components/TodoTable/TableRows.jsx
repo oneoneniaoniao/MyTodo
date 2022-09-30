@@ -1,6 +1,16 @@
 import * as React from "react";
 import PropTypes from "prop-types";
-import { TableCell, TableRow, Box, Stack, Collapse } from "@mui/material";
+import {
+  TableCell,
+  TableRow,
+  Box,
+  Stack,
+  Collapse,
+  Select,
+  MenuItem,
+  InputLabel,
+  FormControl,
+} from "@mui/material";
 import IconButton from "@mui/material/IconButton";
 import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
@@ -9,9 +19,28 @@ import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import getDate from "../utils/getDate";
 import { useRouter } from "next/router";
 import DialogDeleteItem from "../DialogDeleteItem";
+import { useRecoilState } from "recoil";
+import { todosState } from "../atom/atoms";
 
-export const CollapsibleTableRow = ({ todo, onClickDelete }) => {
+export const CollapsibleTableRow = ({ todo }) => {
   const [open, setOpen] = React.useState(false);
+  const [todos, setTodos] = useRecoilState(todosState);
+
+  const onClickDelete = (id) => {
+    console.log("onClickDelete: " + id);
+    const newTodos = todos.filter((todo) => {
+      return todo.id !== id;
+    });
+    setTodos(newTodos);
+  };
+
+  const handleChange = (e, id) => {
+    const newTodos = todos.map((todo) =>
+      todo.id === id ? { ...todo, status: e.target.value } : todo
+    );
+    setTodos(newTodos);
+  };
+
   const router = useRouter();
   const onClickEdit = () => {
     router.push({
@@ -34,9 +63,20 @@ export const CollapsibleTableRow = ({ todo, onClickDelete }) => {
         <TableCell component="th" scope="row">
           {todo.title}
         </TableCell>
-        <TableCell align="center">{todo.status}</TableCell>
         <TableCell align="center">
-          {todo.dueDate && getDate(todo.dueDate)}
+          <FormControl variant="standard" sx={{ minWidth: 80 }}>
+            <Select
+              value={todo.status}
+              onChange={(e) => handleChange(e, todo.id)}
+            >
+              <MenuItem value="todo">Todo</MenuItem>
+              <MenuItem value="doing">Doing</MenuItem>
+              <MenuItem value="done">Done</MenuItem>
+            </Select>
+          </FormControl>
+        </TableCell>
+        <TableCell align="center">
+          {todo.dueDate ? getDate(todo.dueDate) : "Not set"}
         </TableCell>
       </TableRow>
       <TableRow>
@@ -68,7 +108,9 @@ export const CollapsibleTableRow = ({ todo, onClickDelete }) => {
                     },
                   }}
                 />
-                <DialogDeleteItem onClickDelete={() => onClickDelete(todo.id)}>
+                <DialogDeleteItem
+                  onClickDelete={(e) => onClickDelete(e, todo.id)}
+                >
                   <DeleteOutlinedIcon
                     sx={{
                       fontSize: 26,
@@ -97,7 +139,24 @@ CollapsibleTableRow.propTypes = {
   }).isRequired,
 };
 
-export const NormalTableRow = ({ todo, onClickDelete }) => {
+export const NormalTableRow = ({ todo }) => {
+  const [todos, setTodos] = useRecoilState(todosState);
+
+  const onClickDelete = (id) => {
+    console.log("onClickDelete: " + id);
+    const newTodos = todos.filter((todo) => {
+      return todo.id !== id;
+    });
+    setTodos(newTodos);
+  };
+
+  const handleChange = (e, id) => {
+    const newTodos = todos.map((todo) =>
+      todo.id === id ? { ...todo, status: e.target.value } : todo
+    );
+    setTodos(newTodos);
+  };
+
   const router = useRouter();
   const onClickEdit = () => {
     router.push({
@@ -111,9 +170,20 @@ export const NormalTableRow = ({ todo, onClickDelete }) => {
         {todo.title}
       </TableCell>
       <TableCell>{todo.detail}</TableCell>
-      <TableCell align="center">{todo.status}</TableCell>
       <TableCell align="center">
-        {todo.dueDate && getDate(todo.dueDate)}
+        <FormControl variant="standard" sx={{ minWidth: 80 }}>
+          <Select
+            value={todo.status}
+            onChange={(e) => handleChange(e, todo.id)}
+          >
+            <MenuItem value="todo">Todo</MenuItem>
+            <MenuItem value="doing">Doing</MenuItem>
+            <MenuItem value="done">Done</MenuItem>
+          </Select>
+        </FormControl>
+      </TableCell>
+      <TableCell align="center">
+        {todo.dueDate ? getDate(todo.dueDate) : "Not set"}
       </TableCell>
       <TableCell align="right">
         <Stack direction="row" justifyContent="space-around" minWidth="60px">

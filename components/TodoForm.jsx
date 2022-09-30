@@ -44,7 +44,7 @@ const TodoForm = () => {
 
   const onSubmit = (data) => {
     console.log("data", data);
-    if (Number.isNaN(data.dueDate.getTime())) {
+    if (Number.isNaN(data.dueDate?.getTime())) {
       alert("The due date is invalid. Please enter a valid date.");
       return;
     } else {
