@@ -1,8 +1,7 @@
-const getDate = (dateObj) => {
+export const getDateString = (dateObj) => {
+  console.log(dateObj, typeof dateObj)
   const YYYY = dateObj.getFullYear();
-  const MM = dateObj.getMonth() + 1;
-  const DD = dateObj.getDate();
+  const MM = ("0"+(dateObj.getMonth() + 1)).slice(-2);
+  const DD = ("0"+dateObj.getDate()).slice(-2);
   return `${YYYY}/${MM}/${DD}`;
 };
-
-export default getDate;

@@ -13,7 +13,7 @@ const styles = {
     position: "absolute",
     bottom: 0,
     width: "100%",
-    fontSize: 16,
+    fontSize: [12,14],
   },
 };
 

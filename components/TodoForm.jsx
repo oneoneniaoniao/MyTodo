@@ -16,6 +16,7 @@ import { todosState } from "./atom/atoms";
 import { v4 as uuidv4 } from "uuid";
 import { useRouter } from "next/router";
 import DialogDeleteItem from "./DialogDeleteItem";
+import { getDateString } from "../components/utils/getDate";
 
 const TodoForm = () => {
   const [todos, setTodos] = useRecoilState(todosState);
@@ -44,10 +45,15 @@ const TodoForm = () => {
 
   const onSubmit = (data) => {
     console.log("data", data);
-    if (Number.isNaN(data.dueDate?.getTime())) {
+    if (Number.isNaN(new Date(data.dueDate)?.getTime())) {
       alert("The due date is invalid. Please enter a valid date.");
       return;
     } else {
+      data = {
+        ...data,
+        dueDate: data.dueDate ? getDateString(data.dueDate) : "",
+      };
+      console.log("dueDate formatted data", data);
       if (id) {
         const newTodo = todos.map((todo) => {
           return todo.id === id ? { id, ...data } : todo;

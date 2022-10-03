@@ -51,7 +51,7 @@ export const CollapsibleTableRow = ({ todo }) => {
   return (
     <>
       <TableRow hover sx={{ "& > *": { borderBottom: "unset" } }}>
-        <TableCell sx={{ pr: 0, py: 1 }}>
+        <TableCell sx={{ pr: 0, py: 1 , pl:[1,3]}}>
           <IconButton
             aria-label="expand row"
             size="small"
@@ -76,7 +76,7 @@ export const CollapsibleTableRow = ({ todo }) => {
           </FormControl>
         </TableCell>
         <TableCell align="center">
-          {todo.dueDate ? getDate(todo.dueDate) : "Not set"}
+          {todo.dueDate || "Not set"}
         </TableCell>
       </TableRow>
       <TableRow>
@@ -109,7 +109,7 @@ export const CollapsibleTableRow = ({ todo }) => {
                   }}
                 />
                 <DialogDeleteItem
-                  onClickDelete={(e) => onClickDelete(e, todo.id)}
+                  onClickDelete={() => onClickDelete(todo.id)}
                 >
                   <DeleteOutlinedIcon
                     sx={{
@@ -134,7 +134,7 @@ CollapsibleTableRow.propTypes = {
   todo: PropTypes.shape({
     title: PropTypes.string.isRequired,
     status: PropTypes.string.isRequired,
-    dueDate: PropTypes.instanceOf(Date).isRequired,
+    dueDate: PropTypes.string.isRequired,
     detail: PropTypes.string.isRequired,
   }).isRequired,
 };
@@ -183,7 +183,7 @@ export const NormalTableRow = ({ todo }) => {
         </FormControl>
       </TableCell>
       <TableCell align="center">
-        {todo.dueDate ? getDate(todo.dueDate) : "Not set"}
+      {todo.dueDate || "Not set"}
       </TableCell>
       <TableCell align="right">
         <Stack direction="row" justifyContent="space-around" minWidth="60px">
@@ -218,7 +218,7 @@ NormalTableRow.propTypes = {
   todo: PropTypes.shape({
     title: PropTypes.string.isRequired,
     status: PropTypes.string.isRequired,
-    dueDate: PropTypes.instanceOf(Date).isRequired,
+    dueDate: PropTypes.string.isRequired,
     detail: PropTypes.string.isRequired,
   }).isRequired,
 };

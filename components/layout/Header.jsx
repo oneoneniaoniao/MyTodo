@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Stack, Box, Paper } from "@mui/material";
+import { Stack, Box, Paper , Typography} from "@mui/material";
 import AddBoxIcon from "@mui/icons-material/AddBox";
 
 const Header = ({ isIndex }) => {
@@ -8,7 +8,7 @@ const Header = ({ isIndex }) => {
       <Stack sx={styles.flexRow} direction="row">
         <Box sx={styles.hover}>
           <Link href="/">
-            <h1>My TODO</h1>
+            <Typography variant="h4">My TODO</Typography>
           </Link>
         </Box>
         {isIndex && (
@@ -50,10 +50,14 @@ const styles = {
   hoverIcon: {
     color: "common.white",
     mx: 3,
-    fontSize: "32px",
+    fontSize: [15,24],
     "&:hover": {
       color: "grey.100",
     },
   },
+  title:{
+    fontWeight:700,
+    fontSize: [15,24],
+  }
 };
 export default Header;
