@@ -1,9 +1,7 @@
 import { blue, yellow, green, lightBlue, indigo, teal, amber } from "@mui/material/colors";
-import { createTheme } from "@mui/material/styles";
-import defaultTheme from "@mui/material/styles";
-import { useRecoilBridgeAcrossReactRoots_UNSTABLE } from "recoil";
+import { createTheme, responsiveFontSizes } from "@mui/material/styles";
 
-const theme = createTheme({
+let theme = createTheme({
   palette: {
     primary: {
       main: blue[300],
@@ -13,5 +11,6 @@ const theme = createTheme({
     },
   },
 });
+theme = responsiveFontSizes(theme);
 
 export default theme;

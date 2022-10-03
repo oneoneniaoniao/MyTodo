@@ -32,8 +32,8 @@ const styles = {
   box: {
     maxWidth: "lg",
     mx: "auto",
-    px: 5,
-    pt: 11,
+    px: [0.5,2,5],
+    pt: [8,11],
   },
 };
 
