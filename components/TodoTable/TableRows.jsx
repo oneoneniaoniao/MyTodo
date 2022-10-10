@@ -20,14 +20,13 @@ import getDate from "../utils/getDate";
 import { useRouter } from "next/router";
 import DialogDeleteItem from "../DialogDeleteItem";
 import { useRecoilState } from "recoil";
-import { todosState } from "../atom/atoms";
+import { useTodosState } from "../atom/atoms";
 
 export const CollapsibleTableRow = ({ todo }) => {
   const [open, setOpen] = React.useState(false);
-  const [todos, setTodos] = useRecoilState(todosState);
+  const [todos, setTodos] = useTodosState();
 
   const onClickDelete = (id) => {
-    console.log("onClickDelete: " + id);
     const newTodos = todos.filter((todo) => {
       return todo.id !== id;
     });
@@ -140,10 +139,9 @@ CollapsibleTableRow.propTypes = {
 };
 
 export const NormalTableRow = ({ todo }) => {
-  const [todos, setTodos] = useRecoilState(todosState);
+  const [todos, setTodos] = useTodosState();
 
   const onClickDelete = (id) => {
-    console.log("onClickDelete: " + id);
     const newTodos = todos.filter((todo) => {
       return todo.id !== id;
     });

@@ -49,8 +49,8 @@ const styles = {
   },
   hoverIcon: {
     color: "common.white",
-    mx: 3,
-    fontSize: [15,24],
+    mx: 1,
+    fontSize: [20,26],
     "&:hover": {
       color: "grey.100",
     },

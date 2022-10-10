@@ -12,8 +12,7 @@ import {
   Paper,
   Box,
 } from "@mui/material";
-import { useRecoilState } from "recoil";
-import { todosState } from "../atom/atoms";
+import { useTodosState } from "../atom/atoms";
 import { NormalTableHead, CollapsibleTableHead } from "./TableHeads";
 import { NormalTableRow, CollapsibleTableRow } from "./TableRows";
 
@@ -25,7 +24,6 @@ function descendingComparator(a, b, orderBy) {
   if (b[orderBy] > a[orderBy]) {
     return 1;
   }
-  console.log("b[orderBy]=== a[orderBy]")
   return 0;
 }
 
@@ -42,7 +40,7 @@ const TodoTable = ({ statusFilter }) => {
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.up("md"));
-  const [todos, setTodos] = useRecoilState(todosState);
+  const [todos, setTodos] = useTodosState();
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === "asc";
@@ -64,7 +62,6 @@ const TodoTable = ({ statusFilter }) => {
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - todos.length) : 0;
 
   const onClickDelete = (id) => {
-    console.log("onClickDelete: " + id);
     const newTodos = todos.filter((todo) => {
       return todo.id !== id;
     });

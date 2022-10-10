@@ -1,5 +1,7 @@
+import React from 'react';
 import { atom } from "recoil";
 import { recoilPersist } from "recoil-persist";
+import {useRecoilState  } from "recoil"
 
 const { persistAtom } = recoilPersist();
 
@@ -53,3 +55,14 @@ export const todosState = atom({
   ],
   effects_UNSTABLE: [persistAtom],
 });
+
+export const useTodosState = () => {
+  const [isInitial, setIsInitial] = React.useState(true);
+  const [todosStateStored, setTodosStateStored] = useRecoilState(todosState);
+
+  React.useEffect(() => {
+    setIsInitial(false);
+  }, []);
+
+  return [isInitial === true ? [] : todosStateStored, setTodosStateStored];
+};

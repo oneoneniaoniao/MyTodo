@@ -1,10 +1,9 @@
 import React from "react";
 import { Typography, Box } from "@mui/material";
-import { useRecoilValue } from "recoil";
-import { todosState } from "./atom/atoms";
+import { useTodosState } from "./atom/atoms";
 
 const ToDoSummary = () => {
-  const todos = useRecoilValue(todosState);
+  const [ todos, setTodos] =useTodosState();
   const todosLength = todos.filter((todo) => todo.status === "todo").length;
   const doingsLength = todos.filter((todo) => todo.status === "doing").length;
   const doneLength = todos.filter((todo) => todo.status === "done").length;

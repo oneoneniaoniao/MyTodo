@@ -7,11 +7,8 @@ import {
   MenuItem,
 } from "@mui/material";
 import FilterListIcon from "@mui/icons-material/FilterList";
-import { useRecoilState } from "recoil";
-import { todosState } from "./atom/atoms";
 
 const SelectStatus = ({ statusFilter, setStatusFilter }) => {
-  const [todos, setTodos] = useRecoilState(todosState);
 
   return (
     <Stack
