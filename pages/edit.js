@@ -15,7 +15,7 @@ export default function Edit() {
         </Paper>
       </Layout>
       <Head>
-        <title>My ToDo App - Please add your todo -</title>
+        <title>My ToDo App - Please edit your todo -</title>
       </Head>
     </>
   );

@@ -11,49 +11,54 @@ import {
 } from "@mui/material";
 import FormControl from "@mui/material/FormControl";
 import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
-import { useRecoilState } from "recoil";
-import { todosState } from "./atom/atoms";
+import { useTodosState } from "./atom/atoms";
 import { v4 as uuidv4 } from "uuid";
 import { useRouter } from "next/router";
 import DialogDeleteItem from "./DialogDeleteItem";
 import { getDateString } from "../components/utils/getDate";
 
 const TodoForm = () => {
-  const [todos, setTodos] = useRecoilState(todosState);
+  const [todos, setTodos] = useTodosState();
   const router = useRouter();
-  const id = router.query.id;
-  const defaultValue = {
+  const id = useRouter().query.id;
+
+  const [defaultValue, setDefaultValue] = React.useState({
     title: "",
     detail: "",
     status: "todo",
     dueDate: null,
-  };
+  });
 
-  if (id) {
-    const targetTodo = todos.filter((todo) => {
-      return id === todo.id;
-    })[0];
-    if (targetTodo) {
-      defaultValue.title = targetTodo.title;
-      defaultValue.detail = targetTodo.detail;
-      defaultValue.status = targetTodo.status;
-      defaultValue.dueDate = targetTodo.dueDate;
+  React.useEffect(() => {
+    if (id) {
+      const targetTodo = todos.filter((todo) => {
+        return id === todo.id;
+      })[0];
+      if (targetTodo) {
+        setDefaultValue({
+          title: targetTodo.title,
+          detail: targetTodo.detail,
+          status: targetTodo.status,
+          dueDate: targetTodo.dueDate,
+        });
+        reset(defaultValue);
+      }
     }
-  }
+  }, [reset, todos]);
 
-  const { control, handleSubmit } = useForm({});
+  const { control, handleSubmit, reset } = useForm({});
 
   const onSubmit = (data) => {
-    console.log("data", data);
     if (Number.isNaN(new Date(data.dueDate)?.getTime())) {
       alert("The due date is invalid. Please enter a valid date.");
       return;
     } else {
-      data = {
-        ...data,
-        dueDate: data.dueDate ? getDateString(data.dueDate) : "",
-      };
-      console.log("dueDate formatted data", data);
+      if (data.dueDate instanceof Date) {
+        data = {
+          ...data,
+          dueDate: getDateString(data.dueDate),
+        };
+      }
       if (id) {
         const newTodo = todos.map((todo) => {
           return todo.id === id ? { id, ...data } : todo;
@@ -92,12 +97,12 @@ const TodoForm = () => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
+      {defaultValue.title}
       <Stack alignItems="stretch" justifyContent="center" spacing={3}>
         <Controller
           control={control}
           name="title"
           rules={validationRules.task}
-          defaultValue={defaultValue.title}
           render={({ field, fieldState }) => (
             <TextField
               {...field}
@@ -113,7 +118,6 @@ const TodoForm = () => {
           control={control}
           name="detail"
           rules={validationRules.detail}
-          defaultValue={defaultValue.detail}
           render={({ field, fieldState }) => (
             <TextField
               {...field}
@@ -131,7 +135,6 @@ const TodoForm = () => {
           <Controller
             control={control}
             name="status"
-            defaultValue={defaultValue.status}
             render={({ field }) => (
               <FormControl sx={{ width: "50%" }}>
                 <InputLabel id="status-label">Status</InputLabel>
@@ -146,7 +149,6 @@ const TodoForm = () => {
           <Controller
             control={control}
             name="dueDate"
-            defaultValue={defaultValue.dueDate}
             render={({ field }) => (
               <DesktopDatePicker
                 {...field}
