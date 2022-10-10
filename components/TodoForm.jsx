@@ -21,13 +21,12 @@ const TodoForm = () => {
   const [todos, setTodos] = useTodosState();
   const router = useRouter();
   const id = useRouter().query.id;
-
-  const [defaultValue, setDefaultValue] = React.useState({
+  const { control, handleSubmit, reset } = useForm({defaultValues:{
     title: "",
     detail: "",
     status: "todo",
     dueDate: null,
-  });
+  }});
 
   React.useEffect(() => {
     if (id) {
@@ -35,18 +34,15 @@ const TodoForm = () => {
         return id === todo.id;
       })[0];
       if (targetTodo) {
-        setDefaultValue({
+        reset({
           title: targetTodo.title,
           detail: targetTodo.detail,
           status: targetTodo.status,
           dueDate: targetTodo.dueDate,
         });
-        reset(defaultValue);
       }
     }
   }, [reset, todos]);
-
-  const { control, handleSubmit, reset } = useForm({});
 
   const onSubmit = (data) => {
     if (Number.isNaN(new Date(data.dueDate)?.getTime())) {
@@ -97,7 +93,6 @@ const TodoForm = () => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      {defaultValue.title}
       <Stack alignItems="stretch" justifyContent="center" spacing={3}>
         <Controller
           control={control}
