@@ -133,8 +133,8 @@ CollapsibleTableRow.propTypes = {
   todo: PropTypes.shape({
     title: PropTypes.string.isRequired,
     status: PropTypes.string.isRequired,
-    dueDate: PropTypes.string.isRequired,
-    detail: PropTypes.string.isRequired,
+    dueDate: PropTypes.string||null,
+    detail: PropTypes.string,
   }).isRequired,
 };
 
@@ -216,7 +216,7 @@ NormalTableRow.propTypes = {
   todo: PropTypes.shape({
     title: PropTypes.string.isRequired,
     status: PropTypes.string.isRequired,
-    dueDate: PropTypes.string.isRequired,
-    detail: PropTypes.string.isRequired,
+    dueDate: PropTypes.string||null,
+    detail: PropTypes.string,
   }).isRequired,
 };
