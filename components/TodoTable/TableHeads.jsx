@@ -10,21 +10,21 @@ import {
 import { visuallyHidden } from "@mui/utils";
 
 const headCells = [
-  { id: "title", label: "Title", align: "left", sx: { minWidth: "120px" } },
+  { id: "title", label: "Title", align: "left", sx: { minWidth: "120px", padding:[0.5,1] } },
   {
     id: "detail",
     label: "Detail",
     align: "left",
-    sx: { minWidth: "calc(100% - 660px)" },
+    sx: { minWidth: "calc(100% - 660px), padding:[0.5,1]" },
   },
-  { id: "status", label: "Status", align: "center", sx: { minWidth: "100px" } },
+  { id: "status", label: "Status", align: "center", sx: { minWidth: "80px", padding:[0.5,1] } },
   {
     id: "dueDate",
     label: "Due date",
     align: "center",
-    sx: { minWidth: "140px" },
+    sx: { minWidth: "110px", padding:[0.5,1] },
   },
-  { id: "util", label: "", align: "right", sx: { width: "80px" } },
+  { id: "util", label: "", align: "right", sx: { width: "80px", padding:[0.5,1] } },
 ];
 
 export const NormalTableHead = (props) => {

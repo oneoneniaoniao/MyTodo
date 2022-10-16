@@ -8,7 +8,6 @@ import {
   Collapse,
   Select,
   MenuItem,
-  InputLabel,
   FormControl,
 } from "@mui/material";
 import IconButton from "@mui/material/IconButton";
@@ -49,8 +48,19 @@ export const CollapsibleTableRow = ({ todo }) => {
   };
   return (
     <>
-      <TableRow hover sx={{ "& > *": { borderBottom: "unset" } }}>
-        <TableCell sx={{ pr: 0, py: 1 , pl:[1,3]}}>
+      <TableRow
+        hover
+        sx={{
+          "& > *": { borderBottom: "unset" },
+          bgcolor:
+            todo.status === "todo"
+              ? "todo.main"
+              : todo.status === "doing"
+              ? "doing.main"
+              : "done.main",
+        }}
+      >
+        <TableCell sx={{ pr: 0, py: 1, pl: 1, border: 0 }}>
           <IconButton
             aria-label="expand row"
             size="small"
@@ -59,10 +69,14 @@ export const CollapsibleTableRow = ({ todo }) => {
             {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
           </IconButton>
         </TableCell>
-        <TableCell component="th" scope="row">
+        <TableCell
+          component="th"
+          scope="row"
+          sx={{ border: 0, padding: [0.5, 1] }}
+        >
           {todo.title}
         </TableCell>
-        <TableCell align="center">
+        <TableCell align="center" sx={{ border: 0, padding: [0.5, 1] }}>
           <FormControl variant="standard" sx={{ minWidth: 80 }}>
             <Select
               value={todo.status}
@@ -74,11 +88,20 @@ export const CollapsibleTableRow = ({ todo }) => {
             </Select>
           </FormControl>
         </TableCell>
-        <TableCell align="center">
+        <TableCell align="center" sx={{ border: 0, padding: [0.5, 1] }}>
           {todo.dueDate || "Not set"}
         </TableCell>
       </TableRow>
-      <TableRow>
+      <TableRow
+        sx={{
+          bgcolor:
+            todo.status === "todo"
+              ? "todo.main"
+              : todo.status === "doing"
+              ? "doing.main"
+              : "done.main",
+        }}
+      >
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={4}>
           <Collapse in={open} timeout="auto" unmountOnExit>
             <Stack
@@ -91,7 +114,9 @@ export const CollapsibleTableRow = ({ todo }) => {
                 justifyContent: "space-between",
               }}
             >
-              <Box ml={8}>{todo.detail}</Box>
+              <Box ml={4} mr={1}>
+                {todo.detail}
+              </Box>
               <Stack
                 direction="row"
                 justifyContent="space-around"
@@ -107,9 +132,7 @@ export const CollapsibleTableRow = ({ todo }) => {
                     },
                   }}
                 />
-                <DialogDeleteItem
-                  onClickDelete={() => onClickDelete(todo.id)}
-                >
+                <DialogDeleteItem onClickDelete={() => onClickDelete(todo.id)} title={todo.title}>
                   <DeleteOutlinedIcon
                     sx={{
                       fontSize: 26,
@@ -133,7 +156,7 @@ CollapsibleTableRow.propTypes = {
   todo: PropTypes.shape({
     title: PropTypes.string.isRequired,
     status: PropTypes.string.isRequired,
-    dueDate: PropTypes.string||null,
+    dueDate: PropTypes.string || null,
     detail: PropTypes.string,
   }).isRequired,
 };
@@ -163,7 +186,14 @@ export const NormalTableRow = ({ todo }) => {
     });
   };
   return (
-    <TableRow hover tabIndex={-1}>
+    <TableRow hover tabIndex={-1} sx={{
+      bgcolor:
+        todo.status === "todo"
+          ? "todo.main"
+          : todo.status === "doing"
+          ? "doing.main"
+          : "done.main",
+    }}>
       <TableCell component="th" id={todo.id} scope="row">
         {todo.title}
       </TableCell>
@@ -180,9 +210,7 @@ export const NormalTableRow = ({ todo }) => {
           </Select>
         </FormControl>
       </TableCell>
-      <TableCell align="center">
-      {todo.dueDate || "Not set"}
-      </TableCell>
+      <TableCell align="center">{todo.dueDate || "Not set"}</TableCell>
       <TableCell align="right">
         <Stack direction="row" justifyContent="space-around" minWidth="60px">
           <EditOutlinedIcon
@@ -195,7 +223,7 @@ export const NormalTableRow = ({ todo }) => {
               },
             }}
           />
-          <DialogDeleteItem onClickDelete={() => onClickDelete(todo.id)}>
+          <DialogDeleteItem onClickDelete={() => onClickDelete(todo.id)} title={todo.title}>
             <DeleteOutlinedIcon
               sx={{
                 fontSize: 26,
@@ -216,7 +244,7 @@ NormalTableRow.propTypes = {
   todo: PropTypes.shape({
     title: PropTypes.string.isRequired,
     status: PropTypes.string.isRequired,
-    dueDate: PropTypes.string||null,
+    dueDate: PropTypes.string || null,
     detail: PropTypes.string,
   }).isRequired,
 };
