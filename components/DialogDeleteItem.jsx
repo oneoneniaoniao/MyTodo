@@ -8,7 +8,7 @@ import DialogTitle from "@mui/material/DialogTitle";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
 
-export default function DialogDeleteItem({ onClickDelete, children }) {
+export default function DialogDeleteItem({ onClickDelete, children, title }) {
   const [open, setOpen] = React.useState(false);
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
@@ -41,7 +41,7 @@ export default function DialogDeleteItem({ onClickDelete, children }) {
         aria-labelledby="responsive-dialog-title"
       >
         <DialogTitle id="responsive-dialog-title" sx={{ m: 2 }}>
-          {"Task: "}
+          {`Task: ${title}`}
         </DialogTitle>
         <DialogContent>
           <DialogContentText sx={{ mx: 2 }}>

@@ -1,4 +1,4 @@
-import { blue, yellow, green, lightBlue, indigo, teal, amber } from "@mui/material/colors";
+import { blue, yellow, green, lightBlue, indigo, teal,grey,amber } from "@mui/material/colors";
 import { createTheme, responsiveFontSizes } from "@mui/material/styles";
 
 let theme = createTheme({
@@ -9,6 +9,15 @@ let theme = createTheme({
     secondary: {
       main: amber[200],
     },
+    todo: {
+      main: yellow[50],
+    }
+    ,doing:{
+      main: yellow[100],
+    },
+    done:{
+      main:grey[100],
+    }
   },
 });
 theme = responsiveFontSizes(theme);

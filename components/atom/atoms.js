@@ -1,7 +1,7 @@
-import React from 'react';
+import React from "react";
 import { atom } from "recoil";
 import { recoilPersist } from "recoil-persist";
-import {useRecoilState  } from "recoil"
+import { useRecoilState } from "recoil";
 
 const { persistAtom } = recoilPersist();
 
@@ -10,47 +10,34 @@ export const todosState = atom({
   default: [
     // {
     //   id: "1",
-    //   title: "shopping",
-    //   detail: "Go to izumiya.",
+    //   title: "タイトル",
+    //   detail: "詳細",
     //   status: "todo",
-    //   dueDate: new Date(2000, 1, 1),
+    //   dueDate: "2022/10/01",
     // },
     // {
     //   id: "2",
-    //   title: "This is a long long title. This is a long long titl",
+    //   title:
+    //     "長〜いタイトルです。長〜いタイトルです。長〜いタイトルです。長〜いタイトルです。長〜いタイトルです。長〜いタイトルです。長〜いタイトルです。長〜いタイトルです。長〜いタイトルです。長〜いタイトルです。",
     //   detail:
-    //     "This is a long long detail. This is a long long detail. This is a long long detail. This is a long long.",
+    //     "なが〜〜い詳細です。なが〜〜い詳細です。なが〜〜い詳細です。なが〜〜い詳細です。なが〜〜い詳細です。なが〜〜い詳細です。なが〜〜い詳細です。なが〜〜い詳細です。なが〜〜い詳細です。なが〜〜い詳細です。なが〜〜い詳細です。なが〜〜い詳細です。なが〜〜い詳細です。なが〜〜い詳細です。なが〜〜い詳細です。なが〜〜い詳細です。なが〜〜い詳細です。なが〜〜い詳細です。なが〜〜い詳細です。なが〜〜い詳細です。",
     //   status: "doing",
-    //   dueDate: new Date(2022, 12, 1),
+    //   dueDate: "2022/10/30",
     // },
     // {
     //   id: "3",
-    //   title: "travel",
+    //   title: "タイトルです。タイトルです。",
     //   detail:
-    //     "This is a long long detail. This is a long long detail. This is a long long detail. This is a long long.This is a long long detail. This is a long long detail. This is a long long detail. This is a long long.",
+    //     "これはtodo詳細です。これはtodo詳細です。これはtodo詳細です。これはtodo詳細です。これはtodo詳細です。",
     //   status: "done",
-    //   dueDate: new Date(2022, 12, 11),
+    //   dueDate: "2022/12/31",
     // },
     // {
     //   id: "4",
-    //   title: "shopping2",
-    //   detail: "Go to izumiya.",
-    //   status: "todo",
-    //   dueDate: new Date(2022, 2, 1),
-    // },
-    // {
-    //   id: 5,
-    //   title: "Eat out2",
-    //   detail: "Go to a Mac to buy a coffee.",
-    //   status: "doing",
-    //   dueDate: "2022/9/20",
-    // },
-    // {
-    //   id: 6,
-    //   title: "travel2",
-    //   detail: "Go to Onsen to heal myself.",
+    //   title: "タ",
+    //   detail: "",
     //   status: "done",
-    //   dueDate: "2022/7/20",
+    //   dueDate: "",
     // },
   ],
   effects_UNSTABLE: [persistAtom],

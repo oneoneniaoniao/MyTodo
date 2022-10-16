@@ -8,9 +8,7 @@ import {
   TableContainer,
   TablePagination,
   TableRow,
-  Typography,
   Paper,
-  Box,
 } from "@mui/material";
 import { useTodosState } from "../atom/atoms";
 import { NormalTableHead, CollapsibleTableHead } from "./TableHeads";
@@ -65,9 +63,7 @@ const TodoTable = ({ statusFilter }) => {
     setTodos(newTodos);
   };
 
-  const filteredTodos = statusFilter
-    ? todos.filter((todo) => todo.status === statusFilter)
-    : todos;
+  const filteredTodos = statusFilter ? todos.filter((todo) => todo.status === statusFilter) : todos;
 
   return (
     <>

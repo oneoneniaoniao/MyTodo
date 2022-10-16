@@ -30,9 +30,10 @@ const styles = {
     px: 3,
     py: 1,
     borderRadius:0,
-    position: "absolute",
+    position: "fixed",
     width: "100%",
     top: 0,
+    zIndex: 999,
   },
   flexRow: {
     maxWidth: "lg",
